@@ -63,6 +63,8 @@ namespace XmlPdfCelta
         private void buttonOpenFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFile = new OpenFileDialog();
+
+            //
             openFile.Filter = "XML Files (*.xml)|*.xml";
             if (openFile.ShowDialog() == DialogResult.OK)
             {
