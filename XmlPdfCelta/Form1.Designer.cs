@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.button1 = new System.Windows.Forms.Button();
             this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
             this.reportViewer2 = new Microsoft.Reporting.WinForms.ReportViewer();
@@ -73,9 +74,11 @@
             // 
             // buttonOpenFile
             // 
+            this.buttonOpenFile.Image = ((System.Drawing.Image)(resources.GetObject("buttonOpenFile.Image")));
+            this.buttonOpenFile.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonOpenFile.Location = new System.Drawing.Point(541, 30);
             this.buttonOpenFile.Name = "buttonOpenFile";
-            this.buttonOpenFile.Size = new System.Drawing.Size(200, 39);
+            this.buttonOpenFile.Size = new System.Drawing.Size(200, 51);
             this.buttonOpenFile.TabIndex = 3;
             this.buttonOpenFile.Text = "Abrir XML";
             this.buttonOpenFile.UseVisualStyleBackColor = true;

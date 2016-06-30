@@ -63,19 +63,17 @@ namespace XmlPdfCelta
         private void buttonOpenFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFile = new OpenFileDialog();
-
-            //
+           
             openFile.Filter = "XML Files (*.xml)|*.xml";
             if (openFile.ShowDialog() == DialogResult.OK)
-            {
-                //MessageBox.Show(openFile.FileName);
+            {               
                 Xml xml = new Xml(openFile.FileName);
                 try
                 {
                     Factura Factura = xml.readXml();
+                    facturaToPDF(Factura);
                 }
-                catch (Exception exception) {
-                    //MessageBox.Show("Documento XML no tiene el formato correcto");
+                catch (Exception exception) {                   
                     MessageBox.Show("Documento XML no tiene el formato correcto","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 }                
             }
@@ -125,6 +123,28 @@ namespace XmlPdfCelta
             byte[] isoBytes = Encoding.Convert(utf8, iso, utfBytes);
 
             return isoBytes;
+        }
+        private void facturaToPDF(Factura factura) {
+
+            ReportDataSource dataSources = new ReportDataSource();
+            dataSources.Name = "DataSet1";
+            dataSources.Value = factura.detalleFactura;
+
+            /*ReportParameter[] parameters = new ReportParameter[2];            
+            parameters[0] = new ReportParameter("par0", "value_par0");
+            parameters[1] = new ReportParameter("par1", "value_par1");
+            this.reportViewer1.LocalReport.SetParameters(parameters);
+            */
+
+            /* ReportParameter titulo = new ReportParameter("titulo", "Factura");
+            ReportParameter titulo2 = new ReportParameter("titulo", "Factura");
+
+
+            this.reportViewer2.LocalReport.DataSources.Clear();
+            this.reportViewer2.LocalReport.DataSources.Add(dataSources);
+            this.reportViewer2.LocalReport.SetParameters(new ReportParameter[] { titulo,titulo2 });
+            this.reportViewer2.RefreshReport();*/
+
         }
     }
 }

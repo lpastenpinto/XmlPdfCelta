@@ -97,6 +97,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Factura.cs" />
+    <Compile Include="PDF\DataSetDetalleFactura.cs">
+      <DependentUpon>DataSetDetalleFactura.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PDF\DataSetDetalleFactura.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetDetalleFactura.xsd</DependentUpon>
+    </Compile>
     <Compile Include="PDF\DataSetXml.cs">
       <DependentUpon>DataSetXml.xsd</DependentUpon>
     </Compile>
@@ -117,6 +125,7 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PDF\reportFactura.rdlc" />
     <EmbeddedResource Include="PDF\reportPdf.rdlc" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -128,6 +137,17 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="packages.config" />
+    <None Include="PDF\DataSetDetalleFactura.xsc">
+      <DependentUpon>DataSetDetalleFactura.xsd</DependentUpon>
+    </None>
+    <None Include="PDF\DataSetDetalleFactura.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetDetalleFactura.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="PDF\DataSetDetalleFactura.xss">
+      <DependentUpon>DataSetDetalleFactura.xsd</DependentUpon>
+    </None>
     <None Include="PDF\DataSetXml.xsc">
       <DependentUpon>DataSetXml.xsd</DependentUpon>
     </None>

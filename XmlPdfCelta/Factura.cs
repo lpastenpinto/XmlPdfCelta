@@ -27,6 +27,7 @@ namespace XmlPdfCelta
         public string DirPostal { set; get; }
         public string CmnaPostal { set; get; }
         public string CiudadPostal { set; get; }
+        public string FchEmis { set; get; }
 
         public string MntNeto { set; get; }
         public string MntExe { set; get; }
@@ -50,6 +51,10 @@ namespace XmlPdfCelta
         public string QtyItem { set; get; }
         public string PrcItem { set; get; }
         public string MontoItem { set; get; }
-                  
+
+        public string DescuentoPct { get; set; }
+        public string DescuentoMonto { set; get; }
+
+
     }
 }

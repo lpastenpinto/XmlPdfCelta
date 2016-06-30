@@ -76,6 +76,8 @@ namespace XmlPdfCelta
             
             Factura.RutEmisor = ((XmlElement)Caratula[0]).GetElementsByTagName("RutEmisor")[0].InnerText;
             Factura.Folio= ((XmlElement)IdDoc[0]).GetElementsByTagName("Folio")[0].InnerText;
+            Factura.FchEmis = ((XmlElement)IdDoc[0]).GetElementsByTagName("FchEmis")[0].InnerText;
+            
 
             if (!Object.ReferenceEquals(null, ((XmlElement)Receptor[0]).GetElementsByTagName("RUTRecep")[0])) {
                 Factura.RUTRecep = ((XmlElement)Receptor[0]).GetElementsByTagName("RUTRecep")[0].InnerText;
@@ -160,6 +162,16 @@ namespace XmlPdfCelta
 
                 if (!Object.ReferenceEquals(null, detalle.GetElementsByTagName("PrcItem")[0])) {
                     detalleFactura.PrcItem = detalle.GetElementsByTagName("PrcItem")[0].InnerText;
+                }
+
+                if (!Object.ReferenceEquals(null, detalle.GetElementsByTagName("DescuentoPct")[0]))
+                {
+                    detalleFactura.DescuentoPct = detalle.GetElementsByTagName("DescuentoPct")[0].InnerText;
+                }
+
+                if (!Object.ReferenceEquals(null, detalle.GetElementsByTagName("DescuentoMonto")[0]))
+                {
+                    detalleFactura.DescuentoMonto = detalle.GetElementsByTagName("DescuentoMonto")[0].InnerText;
                 }
 
                 listDetalleFactura.Add(detalleFactura);
