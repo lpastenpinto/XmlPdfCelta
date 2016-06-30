@@ -38,6 +38,7 @@ namespace XmlPdfCelta
         public string FchResol { set; get; }
         public string NroResol { set; get; }
 
+        public string MntTotalString { set; get; }
         public List<detalleFactura> detalleFactura { set; get; }
     }
 

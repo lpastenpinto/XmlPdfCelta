@@ -56,19 +56,19 @@
             // 
             // reportViewer2
             // 
-            this.reportViewer2.LocalReport.ReportEmbeddedResource = "XmlPdfCelta.PDF.reportPdf.rdlc";
+            this.reportViewer2.LocalReport.ReportEmbeddedResource = "XmlPdfCelta.PDF.reportFactura.rdlc";
             this.reportViewer2.Location = new System.Drawing.Point(39, 112);
             this.reportViewer2.Name = "reportViewer2";
-            this.reportViewer2.Size = new System.Drawing.Size(702, 277);
+            this.reportViewer2.Size = new System.Drawing.Size(770, 400);
             this.reportViewer2.TabIndex = 1;
             // 
             // buttonExport
             // 
-            this.buttonExport.Location = new System.Drawing.Point(639, 424);
+            this.buttonExport.Location = new System.Drawing.Point(603, 536);
             this.buttonExport.Name = "buttonExport";
-            this.buttonExport.Size = new System.Drawing.Size(102, 23);
+            this.buttonExport.Size = new System.Drawing.Size(200, 51);
             this.buttonExport.TabIndex = 2;
-            this.buttonExport.Text = "Export";
+            this.buttonExport.Text = "Exportar a PDF";
             this.buttonExport.UseVisualStyleBackColor = true;
             this.buttonExport.Click += new System.EventHandler(this.buttonExport_Click);
             // 
@@ -76,7 +76,7 @@
             // 
             this.buttonOpenFile.Image = ((System.Drawing.Image)(resources.GetObject("buttonOpenFile.Image")));
             this.buttonOpenFile.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonOpenFile.Location = new System.Drawing.Point(541, 30);
+            this.buttonOpenFile.Location = new System.Drawing.Point(603, 37);
             this.buttonOpenFile.Name = "buttonOpenFile";
             this.buttonOpenFile.Size = new System.Drawing.Size(200, 51);
             this.buttonOpenFile.TabIndex = 3;
@@ -98,7 +98,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(808, 463);
+            this.ClientSize = new System.Drawing.Size(832, 599);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.buttonOpenFile);
             this.Controls.Add(this.buttonExport);

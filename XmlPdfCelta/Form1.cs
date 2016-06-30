@@ -16,6 +16,7 @@ namespace XmlPdfCelta
 {
     public partial class Form1 : Form
     {
+        Factura Factura;
         public Form1()
         {
             InitializeComponent();
@@ -45,18 +46,26 @@ namespace XmlPdfCelta
 
         private void buttonExport_Click(object sender, EventArgs e)
         {
-            //string outPath = @"C:\PDF\ReportOutput.pdf";
-            string outPath = @"ReportOutput.pdf";
+            string outPath = "DocumentoElectronico_RUT"+Factura.RutEmisor+ "_RznSoc"+Factura.RznSoc+"_Folio"+Factura.Folio+".pdf";
+            
+            outPath = @outPath;
             Warning[] warnings;
             string[] streamids;
             string mimeType, encoding, filenameExtension;
-            byte[] bytes = reportViewer2.LocalReport.Render("PDF", null, out mimeType, out encoding, out filenameExtension, out streamids, out warnings);
 
-            FileStream fs = File.Create(outPath);
-            fs.Write(bytes, 0, bytes.Length);
-            fs.Close();
+            try
+            {
+                byte[] bytes = reportViewer2.LocalReport.Render("PDF", null, out mimeType, out encoding, out filenameExtension, out streamids, out warnings);
 
-            Process.Start(outPath);
+                FileStream fs = File.Create(outPath);
+                fs.Write(bytes, 0, bytes.Length);
+                fs.Close();
+
+                Process.Start(outPath);
+            }
+            catch (Exception) {
+                MessageBox.Show("Imposible exportar archivo. Verifique que archivo pdf esta cerrado");
+            }
             
         }
 
@@ -70,10 +79,10 @@ namespace XmlPdfCelta
                 Xml xml = new Xml(openFile.FileName);
                 try
                 {
-                    Factura Factura = xml.readXml();
+                    Factura = xml.readXml();
                     facturaToPDF(Factura);
                 }
-                catch (Exception exception) {                   
+                catch (Exception) {                   
                     MessageBox.Show("Documento XML no tiene el formato correcto","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 }                
             }
@@ -130,20 +139,41 @@ namespace XmlPdfCelta
             dataSources.Name = "DataSet1";
             dataSources.Value = factura.detalleFactura;
 
-            /*ReportParameter[] parameters = new ReportParameter[2];            
-            parameters[0] = new ReportParameter("par0", "value_par0");
-            parameters[1] = new ReportParameter("par1", "value_par1");
-            this.reportViewer1.LocalReport.SetParameters(parameters);
-            */
-
-            /* ReportParameter titulo = new ReportParameter("titulo", "Factura");
-            ReportParameter titulo2 = new ReportParameter("titulo", "Factura");
-
+            ReportParameter[] parameters = new ReportParameter[26];            
+            parameters[0] = new ReportParameter("RznSoc", factura.RznSoc);
+            parameters[1] = new ReportParameter("GiroEmis", factura.GiroEmis);
+            parameters[2] = new ReportParameter("DirOrigen", factura.DirOrigen);
+            parameters[3] = new ReportParameter("CmnaOrigen", factura.CmnaOrigen);
+            parameters[4] = new ReportParameter("CiudadOrigen", factura.CiudadOrigen);
+            parameters[5] = new ReportParameter("RutEmisor", factura.RutEmisor);
+            parameters[6] = new ReportParameter("Folio", factura.Folio);
+            parameters[7] = new ReportParameter("RUTRecep", factura.RUTRecep);
+            parameters[8] = new ReportParameter("RznSocRecep", factura.RznSocRecep);
+            parameters[9] = new ReportParameter("GiroRecep", factura.GiroRecep);
+            parameters[10] = new ReportParameter("Contacto", factura.Contacto);
+            parameters[11] = new ReportParameter("DirRecep", factura.DirRecep);
+            parameters[12] = new ReportParameter("CmnaRecep", factura.CmnaRecep);
+            parameters[13] = new ReportParameter("CiudadRecep", factura.CiudadRecep);
+            parameters[14] = new ReportParameter("DirPostal", factura.DirPostal);
+            parameters[15] = new ReportParameter("CmnaPostal", factura.CmnaPostal);
+            parameters[16] = new ReportParameter("CiudadPostal", factura.CiudadPostal);
+            parameters[17] = new ReportParameter("FchEmis", factura.FchEmis);
+            parameters[18] = new ReportParameter("MntNeto", factura.MntNeto);
+            parameters[19] = new ReportParameter("MntExe", factura.MntExe);
+            parameters[20] = new ReportParameter("TasaIVA", factura.TasaIVA);
+            parameters[21] = new ReportParameter("IVA", factura.IVA);
+            parameters[22] = new ReportParameter("MntTotal", factura.MntTotal);
+            parameters[23] = new ReportParameter("FchResol", factura.FchResol);
+            parameters[24] = new ReportParameter("NroResol", factura.NroResol);
+            parameters[25] = new ReportParameter("MntTotalString", factura.MntTotalString);
+            
 
             this.reportViewer2.LocalReport.DataSources.Clear();
             this.reportViewer2.LocalReport.DataSources.Add(dataSources);
-            this.reportViewer2.LocalReport.SetParameters(new ReportParameter[] { titulo,titulo2 });
-            this.reportViewer2.RefreshReport();*/
+            //this.reportViewer2.LocalReport.SetParameters(new ReportParameter[] { titulo,titulo2 });
+            this.reportViewer2.LocalReport.SetParameters(parameters);
+            
+            this.reportViewer2.RefreshReport();
 
         }
     }
