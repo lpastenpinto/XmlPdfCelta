@@ -40,6 +40,29 @@ namespace XmlPdfCelta
 
         public string MntTotalString { set; get; }
         public List<detalleFactura> detalleFactura { set; get; }
+
+
+        public void formatFactura() {
+            this.FchResol = FormatStringFactura.dateTimeStringToFormat(this.FchResol);
+            this.FchEmis = FormatStringFactura.dateTimeStringToFormat(this.FchEmis);
+
+            this.MntTotalString = FormatStringFactura.numberToWord(this.MntTotal);
+
+            this.MntNeto = FormatStringFactura.stringToPesos(this.MntNeto);
+            this.MntExe = FormatStringFactura.stringToPesos(this.MntExe);
+            this.TasaIVA = FormatStringFactura.ivaNewFormat(this.TasaIVA);
+            this.IVA = FormatStringFactura.stringToPesos(this.IVA);
+            this.MntTotal = FormatStringFactura.stringToPesos(this.MntTotal);
+
+            
+
+
+            foreach (detalleFactura detalle in this.detalleFactura) {
+                detalle.PrcItem = FormatStringFactura.stringToPesos(detalle.PrcItem);
+                detalle.DescuentoMonto = FormatStringFactura.stringToPesos(detalle.DescuentoMonto);
+                detalle.MontoItem = FormatStringFactura.stringToPesos(detalle.MontoItem);
+            }
+        }
     }
 
     public class detalleFactura

@@ -21,23 +21,7 @@ namespace XmlPdfCelta
         {
             InitializeComponent();
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            
-            /*ReportDataSource dataSources = new ReportDataSource();
-            dataSources.Name = "DataSet1";
-            dataSources.Value = Xml.readXml();
-
-            ReportParameter titulo = new ReportParameter("titulo", "Factura");
-            
-            this.reportViewer2.LocalReport.DataSources.Clear();
-            this.reportViewer2.LocalReport.DataSources.Add(dataSources);
-            this.reportViewer2.LocalReport.SetParameters(new ReportParameter[] { titulo });
-            this.reportViewer2.RefreshReport();*/
-            
-        }
-
+        
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -46,27 +30,16 @@ namespace XmlPdfCelta
 
         private void buttonExport_Click(object sender, EventArgs e)
         {
-            string outPath = "DocumentoElectronico_RUT"+Factura.RutEmisor+ "_RznSoc"+Factura.RznSoc+"_Folio"+Factura.Folio+".pdf";
-            
-            outPath = @outPath;
-            Warning[] warnings;
-            string[] streamids;
-            string mimeType, encoding, filenameExtension;
-
             try
             {
-                byte[] bytes = reportViewer2.LocalReport.Render("PDF", null, out mimeType, out encoding, out filenameExtension, out streamids, out warnings);
+                string outPath = "DocumentoElectronico_RUT" + Factura.RutEmisor + "_RznSoc" + Factura.RznSoc + "_Folio" + Factura.Folio + ".pdf";
 
-                FileStream fs = File.Create(outPath);
-                fs.Write(bytes, 0, bytes.Length);
-                fs.Close();
-
-                Process.Start(outPath);
+                savePDF(outPath);
             }
-            catch (Exception) {
-                MessageBox.Show("Imposible exportar archivo. Verifique que archivo pdf esta cerrado");
+            catch (Exception ex) {
+                MessageBox.Show("Imposible exportar archivo. Verifique que el documento xml este cargado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+           
         }
 
         private void buttonOpenFile_Click(object sender, EventArgs e)
@@ -80,9 +53,10 @@ namespace XmlPdfCelta
                 try
                 {
                     Factura = xml.readXml();
+                    Factura.formatFactura();
                     facturaToPDF(Factura);
                 }
-                catch (Exception) {                   
+                catch (Exception ex) {                   
                     MessageBox.Show("Documento XML no tiene el formato correcto","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 }                
             }
@@ -169,12 +143,80 @@ namespace XmlPdfCelta
             
 
             this.reportViewer2.LocalReport.DataSources.Clear();
-            this.reportViewer2.LocalReport.DataSources.Add(dataSources);
-            //this.reportViewer2.LocalReport.SetParameters(new ReportParameter[] { titulo,titulo2 });
+            this.reportViewer2.LocalReport.DataSources.Add(dataSources);           
             this.reportViewer2.LocalReport.SetParameters(parameters);
             
             this.reportViewer2.RefreshReport();
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+                saveFileDialog1.Filter = "(*.pdf)|*.pdf";
+                saveFileDialog1.Title = "Guardar Documento PDF";
+
+                saveFileDialog1.FileName = "DocumentoElectronico_RUT" + Factura.RutEmisor + "_RznSoc" + Factura.RznSoc + "_Folio" + Factura.Folio + ".pdf";
+
+                saveFileDialog1.ShowDialog();
+                if (saveFileDialog1.FileName != "")
+                {
+                    savePDF(saveFileDialog1.FileName);
+                }
+            }
+            catch (Exception ex) {
+
+                MessageBox.Show("Imposible exportar archivo. Verifique que el documento xml este cargado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private void savePDF(string outPath) {
+
+            //string outPath = "DocumentoElectronico_RUT" + Factura.RutEmisor + "_RznSoc" + Factura.RznSoc + "_Folio" + Factura.Folio + ".pdf";
+
+            outPath = @outPath;
+            Warning[] warnings;
+            string[] streamids;
+            string mimeType, encoding, filenameExtension;
+
+            try
+            {
+                byte[] bytes = reportViewer2.LocalReport.Render("PDF", null, out mimeType, out encoding, out filenameExtension, out streamids, out warnings);
+
+                FileStream fs = File.Create(outPath);
+                fs.Write(bytes, 0, bytes.Length);
+                fs.Close();
+
+                Process.Start(outPath);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Imposible exportar archivo. Verifique que archivo pdf esta cerrado");
+            }
+        }
+
+        private void buttonExportWord_Click(object sender, EventArgs e)
+        {
+
+            /*SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "Word Doc (*.doc)|*.doc";
+            saveFileDialog1.Title = "Guardar Documento WORD";
+
+            saveFileDialog1.FileName = "DocumentoElectronico_RUT" + Factura.RutEmisor + "_RznSoc" + Factura.RznSoc + "_Folio" + Factura.Folio + ".docx";
+
+            saveFileDialog1.ShowDialog();
+            if (saveFileDialog1.FileName != "")
+            {
+                byte[] bytes = reportViewer2.LocalReport.Render("WORDOPENXML");
+
+                FileStream file = new FileStream(@saveFileDialog1.FileName, FileMode.Create);
+                file.Write(bytes, 0, bytes.Length);
+                file.Close();
+            }
+            */
         }
     }
 }

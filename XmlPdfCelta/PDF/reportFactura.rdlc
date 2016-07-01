@@ -975,7 +975,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox70</rd:DefaultName>
             <Top>0.26458cm</Top>
-            <Left>3.83962cm</Left>
+            <Left>3.52212cm</Left>
             <Height>0.6cm</Height>
             <Width>2.84017cm</Width>
             <ZIndex>3</ZIndex>
@@ -1010,7 +1010,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox71</rd:DefaultName>
             <Top>1.04097cm</Top>
-            <Left>3.83962cm</Left>
+            <Left>3.52212cm</Left>
             <Height>0.6cm</Height>
             <Width>2.84017cm</Width>
             <ZIndex>4</ZIndex>
@@ -1045,7 +1045,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox72</rd:DefaultName>
             <Top>1.81736cm</Top>
-            <Left>3.83962cm</Left>
+            <Left>3.52212cm</Left>
             <Height>0.6cm</Height>
             <Width>2.84017cm</Width>
             <ZIndex>5</ZIndex>
@@ -1449,16 +1449,12 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>SON:</Value>
-                <Style>
-                  <FontSize>9pt</FontSize>
-                </Style>
+                <Value>SON: </Value>
+                <Style />
               </TextRun>
               <TextRun>
                 <Value>=Parameters!MntTotalString.Value</Value>
-                <Style>
-                  <FontSize>9pt</FontSize>
-                </Style>
+                <Style />
               </TextRun>
             </TextRuns>
             <Style />
@@ -1700,7 +1696,7 @@
       <Line Name="Line4">
         <Top>11.02995cm</Top>
         <Left>16.61907cm</Left>
-        <Height>6.56577cm</Height>
+        <Height>6.49521cm</Height>
         <Width>0cm</Width>
         <ZIndex>20</ZIndex>
         <Style>
