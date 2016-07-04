@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using iTextSharp.text.pdf;
+using System.Drawing;
 
 namespace XmlPdfCelta
 {
@@ -39,6 +41,10 @@ namespace XmlPdfCelta
         public string NroResol { set; get; }
 
         public string MntTotalString { set; get; }
+
+        public string TED { set; get; }
+        public string TED_DD { set; get; }
+        public string pathImageTED { set; get; }
         public List<detalleFactura> detalleFactura { set; get; }
 
 
@@ -63,6 +69,34 @@ namespace XmlPdfCelta
                 detalle.MontoItem = FormatStringFactura.stringToPesos(detalle.MontoItem);
             }
         }
+
+        public void generateImageTED(string pathImage) {
+            string contenido = this.TED;
+            //string pathImage = "imgCode.png";
+            BarcodePDF417 pdf417 = new BarcodePDF417();
+
+            pdf417.CodeRows =5;
+            pdf417.CodeColumns = 18;
+            pdf417.ErrorLevel = 5;
+            pdf417.LenCodewords = 999;            
+            pdf417.Options = BarcodePDF417.PDF417_FORCE_BINARY;
+            pdf417.SetText(UTF8_to_ISO(contenido));
+                        
+            pdf417.CreateDrawingImage(Color.Black, Color.White).Save(pathImage);            
+            
+        }
+        private string UTF8_to_ISO(string value)
+        {
+
+
+            Encoding iso = Encoding.GetEncoding("ISO-8859-1");
+            Encoding utf8 = Encoding.UTF8;
+            byte[] utfBytes = utf8.GetBytes(value);
+            byte[] isoBytes = Encoding.Convert(utf8, iso, utfBytes);
+            string msg = iso.GetString(isoBytes);
+            return msg;
+        }
+
     }
 
     public class detalleFactura

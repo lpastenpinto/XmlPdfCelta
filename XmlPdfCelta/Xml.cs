@@ -66,7 +66,10 @@ namespace XmlPdfCelta
             XmlNodeList Detalles =
                ((XmlElement)Documento[0]).GetElementsByTagName("Detalle");
 
-            
+            XmlNodeList TED =
+               ((XmlElement)Documento[0]).GetElementsByTagName("TED");
+
+
             Factura.RutEmisor = ((XmlElement)Emisor[0]).GetElementsByTagName("RUTEmisor")[0].InnerText;
             Factura.RznSoc = ((XmlElement)Emisor[0]).GetElementsByTagName("RznSoc")[0].InnerText;
             Factura.GiroEmis= ((XmlElement)Emisor[0]).GetElementsByTagName("GiroEmis")[0].InnerText;
@@ -78,7 +81,13 @@ namespace XmlPdfCelta
             Factura.Folio= ((XmlElement)IdDoc[0]).GetElementsByTagName("Folio")[0].InnerText;
             Factura.FchEmis = ((XmlElement)IdDoc[0]).GetElementsByTagName("FchEmis")[0].InnerText;
             
-
+            Factura.TED= ((XmlElement)Documento[0]).GetElementsByTagName("TED")[0].InnerXml;
+            Factura.TED = Factura.TED.Replace("\n","");
+            Factura.TED = Factura.TED.Replace("\t", "");
+            //string repl = @"xmlns=\""http://www.sii.cl/SiiDte\""";
+            //repl=repl.Replace("\\", "");
+            //Factura.TED = Factura.TED.Replace(repl, "");
+            Factura.TED_DD = ((XmlElement)TED[0]).GetElementsByTagName("DD")[0].InnerXml;
             if (!Object.ReferenceEquals(null, ((XmlElement)Receptor[0]).GetElementsByTagName("RUTRecep")[0])) {
                 Factura.RUTRecep = ((XmlElement)Receptor[0]).GetElementsByTagName("RUTRecep")[0].InnerText;
             }

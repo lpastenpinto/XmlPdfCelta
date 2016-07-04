@@ -11,6 +11,7 @@ using Microsoft.Reporting.WinForms;
 using System.IO;
 using System.Diagnostics;
 using iTextSharp.text.pdf;
+using System.Drawing.Printing;
 
 namespace XmlPdfCelta
 {
@@ -54,6 +55,9 @@ namespace XmlPdfCelta
                 {
                     Factura = xml.readXml();
                     Factura.formatFactura();
+                    
+                    Factura.pathImageTED = Path.Combine(Path.GetTempPath(), "imgTED.jpg");                    
+                    Factura.generateImageTED(Factura.pathImageTED);
                     facturaToPDF(Factura);
                 }
                 catch (Exception ex) {                   
@@ -113,7 +117,7 @@ namespace XmlPdfCelta
             dataSources.Name = "DataSet1";
             dataSources.Value = factura.detalleFactura;
 
-            ReportParameter[] parameters = new ReportParameter[26];            
+            ReportParameter[] parameters = new ReportParameter[27];            
             parameters[0] = new ReportParameter("RznSoc", factura.RznSoc);
             parameters[1] = new ReportParameter("GiroEmis", factura.GiroEmis);
             parameters[2] = new ReportParameter("DirOrigen", factura.DirOrigen);
@@ -140,8 +144,11 @@ namespace XmlPdfCelta
             parameters[23] = new ReportParameter("FchResol", factura.FchResol);
             parameters[24] = new ReportParameter("NroResol", factura.NroResol);
             parameters[25] = new ReportParameter("MntTotalString", factura.MntTotalString);
-            
+            parameters[26] = new ReportParameter("pathImageTED", @"file:\"+Factura.pathImageTED);
 
+            
+            this.reportViewer2.LocalReport.EnableExternalImages = true;
+            
             this.reportViewer2.LocalReport.DataSources.Clear();
             this.reportViewer2.LocalReport.DataSources.Add(dataSources);           
             this.reportViewer2.LocalReport.SetParameters(parameters);
@@ -201,7 +208,7 @@ namespace XmlPdfCelta
         private void buttonExportWord_Click(object sender, EventArgs e)
         {
 
-            /*SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.Filter = "Word Doc (*.doc)|*.doc";
             saveFileDialog1.Title = "Guardar Documento WORD";
 
@@ -210,13 +217,33 @@ namespace XmlPdfCelta
             saveFileDialog1.ShowDialog();
             if (saveFileDialog1.FileName != "")
             {
-                byte[] bytes = reportViewer2.LocalReport.Render("WORDOPENXML");
+
+
+                Warning[] warnings;
+                string[] streams;
+                string mimeType;
+                string encoding;
+                string extension;
+                string deviceInfo = "<DeviceInfo>" +
+                                 "  <OutputFormat>jpeg</OutputFormat>" +
+                                 "  <PageWidth>11in</PageWidth>" +
+                                 "  <PageHeight>13in</PageHeight>" +
+                                 "  <MarginTop>0.5in</MarginTop>" +
+                                 "  <MarginLeft>1in</MarginLeft>" +
+                                 "  <MarginRight>1in</MarginRight>" +
+                                 "  <MarginBottom>0.5in</MarginBottom>" +
+                                 "</DeviceInfo>";
+
+
+
+                byte[] bytes = reportViewer2.LocalReport.Render("WORDOPENXML");//, null, out mimeType, out encoding, out extension, out streams, out warnings);
+                
 
                 FileStream file = new FileStream(@saveFileDialog1.FileName, FileMode.Create);
                 file.Write(bytes, 0, bytes.Length);
                 file.Close();
             }
-            */
+            
         }
     }
 }
