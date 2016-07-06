@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSetDocumentosReferencia" targetNamespace="http://tempuri.org/DataSetDocumentosReferencia.xsd" xmlns:mstns="http://tempuri.org/DataSetDocumentosReferencia.xsd" xmlns="http://tempuri.org/DataSetDocumentosReferencia.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSetDocumentosReferencia" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSetDocumentosReferencia" msprop:Generator_UserDSName="DataSetDocumentosReferencia">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DataTableDocumentosReferencia" msprop:Generator_TableClassName="DataTableDocumentosReferenciaDataTable" msprop:Generator_TableVarName="tableDataTableDocumentosReferencia" msprop:Generator_TablePropName="DataTableDocumentosReferencia" msprop:Generator_RowDeletingName="DataTableDocumentosReferenciaRowDeleting" msprop:Generator_RowChangingName="DataTableDocumentosReferenciaRowChanging" msprop:Generator_RowEvHandlerName="DataTableDocumentosReferenciaRowChangeEventHandler" msprop:Generator_RowDeletedName="DataTableDocumentosReferenciaRowDeleted" msprop:Generator_UserTableName="DataTableDocumentosReferencia" msprop:Generator_RowChangedName="DataTableDocumentosReferenciaRowChanged" msprop:Generator_RowEvArgName="DataTableDocumentosReferenciaRowChangeEvent" msprop:Generator_RowClassName="DataTableDocumentosReferenciaRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="NroLinRef" msprop:Generator_ColumnVarNameInTable="columnNroLinRef" msprop:Generator_ColumnPropNameInRow="NroLinRef" msprop:Generator_ColumnPropNameInTable="NroLinRefColumn" msprop:Generator_UserColumnName="NroLinRef" type="xs:string" minOccurs="0" />
+              <xs:element name="TpoDocRef" msprop:Generator_ColumnVarNameInTable="columnTpoDocRef" msprop:Generator_ColumnPropNameInRow="TpoDocRef" msprop:Generator_ColumnPropNameInTable="TpoDocRefColumn" msprop:Generator_UserColumnName="TpoDocRef" type="xs:string" minOccurs="0" />
+              <xs:element name="FolioRef" msprop:Generator_ColumnVarNameInTable="columnFolioRef" msprop:Generator_ColumnPropNameInRow="FolioRef" msprop:Generator_ColumnPropNameInTable="FolioRefColumn" msprop:Generator_UserColumnName="FolioRef" type="xs:string" minOccurs="0" />
+              <xs:element name="FchRef" msprop:Generator_ColumnVarNameInTable="columnFchRef" msprop:Generator_ColumnPropNameInRow="FchRef" msprop:Generator_ColumnPropNameInTable="FchRefColumn" msprop:Generator_UserColumnName="FchRef" type="xs:string" minOccurs="0" />
+              <xs:element name="CodRef" msprop:Generator_ColumnVarNameInTable="columnCodRef" msprop:Generator_ColumnPropNameInRow="CodRef" msprop:Generator_ColumnPropNameInTable="CodRefColumn" msprop:Generator_UserColumnName="CodRef" type="xs:string" minOccurs="0" />
+              <xs:element name="RazonRef" msprop:Generator_ColumnVarNameInTable="columnRazonRef" msprop:Generator_ColumnPropNameInRow="RazonRef" msprop:Generator_ColumnPropNameInTable="RazonRefColumn" msprop:Generator_UserColumnName="RazonRef" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

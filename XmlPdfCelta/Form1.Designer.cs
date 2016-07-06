@@ -108,6 +108,7 @@
             this.buttonExportWord.TabIndex = 6;
             this.buttonExportWord.Text = "Exportar word";
             this.buttonExportWord.UseVisualStyleBackColor = true;
+            this.buttonExportWord.Visible = false;
             this.buttonExportWord.Click += new System.EventHandler(this.buttonExportWord_Click);
             // 
             // Form1
@@ -123,7 +124,7 @@
             this.Controls.Add(this.reportViewer2);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Factura XML a PDF Celta";
+            this.Text = "Visor XML a PDF Celta";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 

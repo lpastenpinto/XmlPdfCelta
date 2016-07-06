@@ -66,27 +66,39 @@ namespace XmlPdfCelta
             XmlNodeList Detalles =
                ((XmlElement)Documento[0]).GetElementsByTagName("Detalle");
 
+            XmlNodeList Referencia =
+               ((XmlElement)Documento[0]).GetElementsByTagName("Referencia");
+            
             XmlNodeList TED =
                ((XmlElement)Documento[0]).GetElementsByTagName("TED");
 
 
             Factura.RutEmisor = ((XmlElement)Emisor[0]).GetElementsByTagName("RUTEmisor")[0].InnerText;
             Factura.RznSoc = ((XmlElement)Emisor[0]).GetElementsByTagName("RznSoc")[0].InnerText;
+            if (!Object.ReferenceEquals(null, ((XmlElement)Emisor[0]).GetElementsByTagName("CdgVendedor")[0]))
+            {
+                Factura.CdgVendedor = ((XmlElement)Emisor[0]).GetElementsByTagName("CdgVendedor")[0].InnerText;
+            }
+
             Factura.GiroEmis= ((XmlElement)Emisor[0]).GetElementsByTagName("GiroEmis")[0].InnerText;
             Factura.DirOrigen = ((XmlElement)Emisor[0]).GetElementsByTagName("DirOrigen")[0].InnerText;
             Factura.CmnaOrigen = ((XmlElement)Emisor[0]).GetElementsByTagName("CmnaOrigen")[0].InnerText;
             Factura.CiudadOrigen = ((XmlElement)Emisor[0]).GetElementsByTagName("CiudadOrigen")[0].InnerText;
             
             Factura.RutEmisor = ((XmlElement)Caratula[0]).GetElementsByTagName("RutEmisor")[0].InnerText;
-            Factura.Folio= ((XmlElement)IdDoc[0]).GetElementsByTagName("Folio")[0].InnerText;
+
+            Factura.Folio= ((XmlElement)IdDoc[0]).GetElementsByTagName("Folio")[0].InnerText;            
             Factura.FchEmis = ((XmlElement)IdDoc[0]).GetElementsByTagName("FchEmis")[0].InnerText;
-            
+            if (!Object.ReferenceEquals(null, ((XmlElement)IdDoc[0]).GetElementsByTagName("FchVenc")[0]))
+            {
+                Factura.FchVenc = ((XmlElement)IdDoc[0]).GetElementsByTagName("FchVenc")[0].InnerText;
+            }
+
+
             Factura.TED= ((XmlElement)Documento[0]).GetElementsByTagName("TED")[0].InnerXml;
             Factura.TED = Factura.TED.Replace("\n","");
             Factura.TED = Factura.TED.Replace("\t", "");
-            //string repl = @"xmlns=\""http://www.sii.cl/SiiDte\""";
-            //repl=repl.Replace("\\", "");
-            //Factura.TED = Factura.TED.Replace(repl, "");
+            
             Factura.TED_DD = ((XmlElement)TED[0]).GetElementsByTagName("DD")[0].InnerXml;
             if (!Object.ReferenceEquals(null, ((XmlElement)Receptor[0]).GetElementsByTagName("RUTRecep")[0])) {
                 Factura.RUTRecep = ((XmlElement)Receptor[0]).GetElementsByTagName("RUTRecep")[0].InnerText;
@@ -162,7 +174,12 @@ namespace XmlPdfCelta
                 }
 
                 detalleFactura.NmbItem = detalle.GetElementsByTagName("NmbItem")[0].InnerText;
-                detalleFactura.DscItem = detalle.GetElementsByTagName("DscItem")[0].InnerText;                
+
+                if (!Object.ReferenceEquals(null, detalle.GetElementsByTagName("DscItem")[0]))
+                {
+                    detalleFactura.DscItem = detalle.GetElementsByTagName("DscItem")[0].InnerText;
+                }
+
                 detalleFactura.MontoItem = detalle.GetElementsByTagName("MontoItem")[0].InnerText;
 
                 if (!Object.ReferenceEquals(null, detalle.GetElementsByTagName("QtyItem")[0])) {
@@ -186,6 +203,37 @@ namespace XmlPdfCelta
                 listDetalleFactura.Add(detalleFactura);
             }
             Factura.detalleFactura = listDetalleFactura;
+            List<Referencia> documentosReferencias = new List<Referencia>(); 
+            foreach (XmlElement referencia in Referencia) {
+                Referencia refTemp = new Referencia();
+                if (!Object.ReferenceEquals(null, referencia.GetElementsByTagName("NroLinRef")[0]))
+                {
+                    refTemp.NroLinRef = referencia.GetElementsByTagName("NroLinRef")[0].InnerText;
+                }
+                if (!Object.ReferenceEquals(null, referencia.GetElementsByTagName("TpoDocRef")[0]))
+                {
+                    refTemp.TpoDocRef = referencia.GetElementsByTagName("TpoDocRef")[0].InnerText;
+                }
+                if (!Object.ReferenceEquals(null, referencia.GetElementsByTagName("FolioRef")[0]))
+                {
+                    refTemp.FolioRef = referencia.GetElementsByTagName("FolioRef")[0].InnerText;
+                }
+                if (!Object.ReferenceEquals(null, referencia.GetElementsByTagName("FchRef")[0]))
+                {
+                    refTemp.FchRef = referencia.GetElementsByTagName("FchRef")[0].InnerText;
+                }
+                if (!Object.ReferenceEquals(null, referencia.GetElementsByTagName("CodRef")[0]))
+                {
+                    refTemp.CodRef = referencia.GetElementsByTagName("CodRef")[0].InnerText;
+                }
+                if (!Object.ReferenceEquals(null, referencia.GetElementsByTagName("RazonRef")[0]))
+                {
+                    refTemp.RazonRef = referencia.GetElementsByTagName("RazonRef")[0].InnerText;
+                }
+                documentosReferencias.Add(refTemp);
+            }
+            Factura.documentosReferencia = documentosReferencias;
+            
             return Factura;
         }
     }

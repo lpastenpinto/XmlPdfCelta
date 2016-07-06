@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,16 +11,22 @@ namespace XmlPdfCelta
     {
         public static string dateTimeStringToFormat(string date)
         {
-            date = date.Replace("/", "-");
-            string[] newDate = date.Split(' ')[0].Split('-');
-            return newDate[2] + "/" + newDate[1] + "/" + newDate[0];
+            if (date != null)
+            {
+                date = date.Replace("/", "-");
+                string[] newDate = date.Split(' ')[0].Split('-');
+                return newDate[2] + "/" + newDate[1] + "/" + newDate[0];
+            }
+            else {
+                return "";
+            }
         }
 
 
         public static string stringToPesos(string valor)
         {
 
-           
+            //string valorString = Convert.ToDouble(valor).ToString();
             if ((Object.ReferenceEquals(null, valor))||valor.Equals("0")||valor.Equals("")) {
                 return "";
             }
@@ -27,7 +34,10 @@ namespace XmlPdfCelta
 
 
             string valorIngresado = valor.Replace(".", ",");
+            double valorIngresadoDouble = Convert.ToDouble(valorIngresado);
 
+
+            valorIngresado = Math.Round(valorIngresadoDouble).ToString();
             char[] caracteres = valorIngresado.ToCharArray();
             int posicionComa = caracteres.Length;
 
@@ -379,9 +389,17 @@ namespace XmlPdfCelta
             return resultado;
         }
 
-        public static string ivaNewFormat(string iva) {
-            iva = iva + ",00%";
-            return iva;
+        public static string doubletoString(string value) {
+
+            if (value == null || value == "")
+            {
+                return "";
+            }
+            else
+            {
+                double d = double.Parse(value, CultureInfo.InvariantCulture);
+                return String.Format("{0:n}", d);
+            }            
         }
     }
 }

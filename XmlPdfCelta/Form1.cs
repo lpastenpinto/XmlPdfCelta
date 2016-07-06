@@ -21,6 +21,7 @@ namespace XmlPdfCelta
         public Form1()
         {
             InitializeComponent();
+            
         }
         
         private void Form1_Load(object sender, EventArgs e)
@@ -37,7 +38,7 @@ namespace XmlPdfCelta
 
                 savePDF(outPath);
             }
-            catch (Exception ex) {
+            catch (Exception) {
                 MessageBox.Show("Imposible exportar archivo. Verifique que el documento xml este cargado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
            
@@ -60,7 +61,7 @@ namespace XmlPdfCelta
                     Factura.generateImageTED(Factura.pathImageTED);
                     facturaToPDF(Factura);
                 }
-                catch (Exception ex) {                   
+                catch (Exception) {                   
                     MessageBox.Show("Documento XML no tiene el formato correcto","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 }                
             }
@@ -117,7 +118,11 @@ namespace XmlPdfCelta
             dataSources.Name = "DataSet1";
             dataSources.Value = factura.detalleFactura;
 
-            ReportParameter[] parameters = new ReportParameter[27];            
+            ReportDataSource dataSources2 = new ReportDataSource();
+            dataSources2.Name = "DataSet2";
+            dataSources2.Value = factura.documentosReferencia;
+
+            ReportParameter[] parameters = new ReportParameter[29];            
             parameters[0] = new ReportParameter("RznSoc", factura.RznSoc);
             parameters[1] = new ReportParameter("GiroEmis", factura.GiroEmis);
             parameters[2] = new ReportParameter("DirOrigen", factura.DirOrigen);
@@ -146,11 +151,17 @@ namespace XmlPdfCelta
             parameters[25] = new ReportParameter("MntTotalString", factura.MntTotalString);
             parameters[26] = new ReportParameter("pathImageTED", @"file:\"+Factura.pathImageTED);
 
+            parameters[27] = new ReportParameter("CdgVendedor", factura.CdgVendedor);
+            parameters[28] = new ReportParameter("FchVenc", factura.FchVenc);
+
             
+
             this.reportViewer2.LocalReport.EnableExternalImages = true;
             
             this.reportViewer2.LocalReport.DataSources.Clear();
-            this.reportViewer2.LocalReport.DataSources.Add(dataSources);           
+            this.reportViewer2.LocalReport.DataSources.Add(dataSources);
+            this.reportViewer2.LocalReport.DataSources.Add(dataSources2);
+            
             this.reportViewer2.LocalReport.SetParameters(parameters);
             
             this.reportViewer2.RefreshReport();
@@ -173,7 +184,7 @@ namespace XmlPdfCelta
                     savePDF(saveFileDialog1.FileName);
                 }
             }
-            catch (Exception ex) {
+            catch (Exception) {
 
                 MessageBox.Show("Imposible exportar archivo. Verifique que el documento xml este cargado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -219,7 +230,7 @@ namespace XmlPdfCelta
             {
 
 
-                Warning[] warnings;
+                /*Warning[] warnings;
                 string[] streams;
                 string mimeType;
                 string encoding;
@@ -234,7 +245,7 @@ namespace XmlPdfCelta
                                  "  <MarginBottom>0.5in</MarginBottom>" +
                                  "</DeviceInfo>";
 
-
+                */
 
                 byte[] bytes = reportViewer2.LocalReport.Render("WORDOPENXML");//, null, out mimeType, out encoding, out extension, out streams, out warnings);
                 

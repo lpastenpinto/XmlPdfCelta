@@ -14,10 +14,13 @@ namespace XmlPdfCelta
         public string GiroEmis { set; get; }
         public string DirOrigen { set; get; }
         public string CmnaOrigen { set; get; }
-        public string CiudadOrigen { set; get; }
+        public string CiudadOrigen { set; get; }        
+        public string CdgVendedor { set; get; }
+
 
         public string RutEmisor { set; get; }
-        public string Folio { set; get; }
+        public string Folio { set; get; }        
+        public string FchVenc { set; get; }
 
         public string RUTRecep { set; get; }
         public string RznSocRecep { set; get; }
@@ -45,29 +48,41 @@ namespace XmlPdfCelta
         public string TED { set; get; }
         public string TED_DD { set; get; }
         public string pathImageTED { set; get; }
+
+        public List<Referencia> documentosReferencia { set; get; }
+
+
         public List<detalleFactura> detalleFactura { set; get; }
 
 
         public void formatFactura() {
             this.FchResol = FormatStringFactura.dateTimeStringToFormat(this.FchResol);
             this.FchEmis = FormatStringFactura.dateTimeStringToFormat(this.FchEmis);
+            this.FchVenc = FormatStringFactura.dateTimeStringToFormat(this.FchVenc);
+            //this.FchRef = FormatStringFactura.dateTimeStringToFormat(this.FchRef);
 
             this.MntTotalString = FormatStringFactura.numberToWord(this.MntTotal);
 
             this.MntNeto = FormatStringFactura.stringToPesos(this.MntNeto);
             this.MntExe = FormatStringFactura.stringToPesos(this.MntExe);
-            this.TasaIVA = FormatStringFactura.ivaNewFormat(this.TasaIVA);
+            this.TasaIVA = FormatStringFactura.doubletoString(this.TasaIVA);
             this.IVA = FormatStringFactura.stringToPesos(this.IVA);
             this.MntTotal = FormatStringFactura.stringToPesos(this.MntTotal);
 
-            
 
+            foreach (Referencia referencia in this.documentosReferencia)
+            {
+                referencia.FchRef = FormatStringFactura.dateTimeStringToFormat(referencia.FchRef);                                
+            }
 
             foreach (detalleFactura detalle in this.detalleFactura) {
+                detalle.QtyItem = FormatStringFactura.doubletoString(detalle.QtyItem);
                 detalle.PrcItem = FormatStringFactura.stringToPesos(detalle.PrcItem);
                 detalle.DescuentoMonto = FormatStringFactura.stringToPesos(detalle.DescuentoMonto);
                 detalle.MontoItem = FormatStringFactura.stringToPesos(detalle.MontoItem);
             }
+
+
         }
 
         public void generateImageTED(string pathImage) {
@@ -75,15 +90,15 @@ namespace XmlPdfCelta
             //string pathImage = "imgCode.png";
             BarcodePDF417 pdf417 = new BarcodePDF417();
 
-            pdf417.CodeRows =5;
+            pdf417.CodeRows = 5;
             pdf417.CodeColumns = 18;
             pdf417.ErrorLevel = 5;
-            pdf417.LenCodewords = 999;            
+            pdf417.LenCodewords = 999;
             pdf417.Options = BarcodePDF417.PDF417_FORCE_BINARY;
             pdf417.SetText(UTF8_to_ISO(contenido));
-                        
-            pdf417.CreateDrawingImage(Color.Black, Color.White).Save(pathImage);            
-            
+
+            pdf417.CreateDrawingImage(Color.Black, Color.White).Save(pathImage);
+
         }
         private string UTF8_to_ISO(string value)
         {
@@ -113,6 +128,15 @@ namespace XmlPdfCelta
         public string DescuentoPct { get; set; }
         public string DescuentoMonto { set; get; }
 
+
+    }
+    public class Referencia {
+        public string NroLinRef { set; get; }
+        public string TpoDocRef { set; get; }
+        public string FolioRef { set; get; }
+        public string FchRef { set; get; }
+        public string CodRef { set; get; }
+        public string RazonRef { set; get; }
 
     }
 }
