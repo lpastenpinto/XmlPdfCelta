@@ -18,16 +18,24 @@ namespace XmlPdfCelta
     public partial class Form1 : Form
     {
         Factura Factura;
-        public Form1()
+        string rutaXML;
+        string rutaPDF;
+        public Form1(string rutaXML,string rutaPDF)
         {
+            this.rutaXML = rutaXML;
+            this.rutaPDF = rutaPDF;
             InitializeComponent();
+            //this.reportViewer2.Visible = true;
+            
             
         }
         
         private void Form1_Load(object sender, EventArgs e)
         {
+            generatePDF();
+            this.Close();
+            //this.reportViewer2.RefreshReport();
 
-            this.reportViewer2.RefreshReport();
         }
 
         private void buttonExport_Click(object sender, EventArgs e)
@@ -37,6 +45,7 @@ namespace XmlPdfCelta
                 string outPath = "DocumentoElectronico_RUT" + Factura.RutEmisor + "_RznSoc" + Factura.RznSoc + "_Folio" + Factura.Folio + ".pdf";
 
                 savePDF(outPath);
+                //this.Close();
             }
             catch (Exception) {
                 MessageBox.Show("Imposible exportar archivo. Verifique que el documento xml este cargado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -204,10 +213,12 @@ namespace XmlPdfCelta
             {
                 byte[] bytes = reportViewer2.LocalReport.Render("PDF", null, out mimeType, out encoding, out filenameExtension, out streamids, out warnings);
 
+                outPath = Path.Combine(this.rutaPDF, outPath); //Path.GetTempPath()
+                //MessageBox.Show(outPath);
                 FileStream fs = File.Create(outPath);
                 fs.Write(bytes, 0, bytes.Length);
                 fs.Close();
-
+                
                 Process.Start(outPath);
             }
             catch (Exception)
@@ -255,6 +266,26 @@ namespace XmlPdfCelta
                 file.Close();
             }
             
+        }
+
+
+        private void generatePDF() {
+            Xml xml = new Xml(this.rutaXML);
+            try
+            {
+                Factura = xml.readXml();
+                Factura.formatFactura();
+
+                Factura.pathImageTED = Path.Combine(Path.GetTempPath(), "imgTED.jpg");
+                Factura.generateImageTED(Factura.pathImageTED);
+                facturaToPDF(Factura);
+                string outPath = "DocumentoElectronico_RUT" + Factura.RutEmisor + "_RznSoc" + Factura.RznSoc + "_Folio" + Factura.Folio + ".pdf";
+                savePDF(outPath);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Documento XML no tiene el formato correcto", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }                      
         }
     }
 }

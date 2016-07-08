@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlPdfCelta", "XmlPdfCelta\XmlPdfCelta.csproj", "{A35650CB-6FCB-468C-8E9C-61F7B559A122}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup Visor Xml", "Setup Visor Xml\Setup Visor Xml.vdproj", "{1F314FEF-B55A-4AB7-B2A1-4EBC6A9AF5D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,8 @@ Global
 		{A35650CB-6FCB-468C-8E9C-61F7B559A122}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A35650CB-6FCB-468C-8E9C-61F7B559A122}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A35650CB-6FCB-468C-8E9C-61F7B559A122}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F314FEF-B55A-4AB7-B2A1-4EBC6A9AF5D8}.Debug|Any CPU.ActiveCfg = Debug
+		{1F314FEF-B55A-4AB7-B2A1-4EBC6A9AF5D8}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

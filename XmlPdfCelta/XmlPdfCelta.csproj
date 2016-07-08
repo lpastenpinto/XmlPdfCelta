@@ -22,7 +22,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>9</ApplicationRevision>
+    <ApplicationRevision>11</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -131,7 +131,7 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PDF\reportFactura -Old.rdlc" />
+    <EmbeddedResource Include="PDF\reportFactura - Copy.rdlc" />
     <EmbeddedResource Include="PDF\reportFactura.rdlc" />
     <EmbeddedResource Include="PDF\reportPdf.rdlc" />
     <EmbeddedResource Include="Properties\Resources.resx">
