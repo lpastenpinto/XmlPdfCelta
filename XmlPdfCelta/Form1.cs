@@ -213,7 +213,8 @@ namespace XmlPdfCelta
             {
                 byte[] bytes = reportViewer2.LocalReport.Render("PDF", null, out mimeType, out encoding, out filenameExtension, out streamids, out warnings);
 
-                outPath = Path.Combine(this.rutaPDF, outPath); //Path.GetTempPath()
+                //outPath = Path.Combine(this.rutaPDF, outPath); //Path.GetTempPath()
+                outPath = Path.Combine(Path.GetTempPath(), outPath); //
                 //MessageBox.Show(outPath);
                 FileStream fs = File.Create(outPath);
                 fs.Write(bytes, 0, bytes.Length);

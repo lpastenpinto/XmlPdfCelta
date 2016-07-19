@@ -23,7 +23,7 @@ namespace XmlPdfCelta
         }
 
 
-        public static string stringToPesos(string valor)
+        public static string stringToPesos(string valor,bool configMex)
         {
 
             //string valorString = Convert.ToDouble(valor).ToString();
@@ -32,8 +32,15 @@ namespace XmlPdfCelta
             }
             string retorno = "";
 
+            string valorIngresado = "";
+            if (configMex)
+            {
+                valorIngresado = valor;
+            }
+            else {
+                valorIngresado = valor.Replace(".", ",");
+            }
 
-            string valorIngresado = valor.Replace(".", ",");
             double valorIngresadoDouble = Convert.ToDouble(valorIngresado);
 
 
@@ -389,7 +396,7 @@ namespace XmlPdfCelta
             return resultado;
         }
 
-        public static string doubletoString(string value) {
+        public static string doubletoString(string value,bool configMex) {
 
             if (value == null || value == "")
             {
@@ -397,9 +404,25 @@ namespace XmlPdfCelta
             }
             else
             {
-                double d = double.Parse(value, CultureInfo.InvariantCulture);
-                return String.Format("{0:n}", d);
+                if (configMex)
+                {
+                    double d = double.Parse(value, CultureInfo.InvariantCulture);
+                    string retorno = String.Format("{0:n}", d);
+                    string[] valueArray = retorno.Split('.');
+                    valueArray[0] = valueArray[0].Replace(",", ".");
+                    return valueArray[0] + "," + valueArray[1];
+                }
+                else
+                {
+                    double d = double.Parse(value, CultureInfo.InvariantCulture);
+                    return String.Format("{0:n}", d);
+                }
             }            
+        }
+        public static string numberWithoutComma(string value) {
+            string[] numberSeparate = value.Split('.');
+
+            return numberSeparate[0];
         }
     }
 }

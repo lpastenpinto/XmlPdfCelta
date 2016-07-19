@@ -56,6 +56,72 @@ namespace XmlPdfCelta
 
 
         public void formatFactura() {
+            this.RznSoc = this.RznSoc.TrimEnd();
+            this.GiroEmis = this.GiroEmis.TrimEnd();
+
+            if (!Object.ReferenceEquals(null, this.DirOrigen))
+            {
+                this.DirOrigen = this.DirOrigen.TrimEnd();
+            }
+            
+            if (!Object.ReferenceEquals(null, this.CmnaOrigen))
+            {
+                this.CmnaOrigen = this.CmnaOrigen.TrimEnd();
+            }
+            if (!Object.ReferenceEquals(null, this.CiudadOrigen))
+            {
+                this.CiudadOrigen = this.CiudadOrigen.TrimEnd();
+            }
+
+            if (!Object.ReferenceEquals(null, this.CdgVendedor))
+            {
+                this.CdgVendedor = this.CdgVendedor.TrimEnd();
+            }
+
+            if (!Object.ReferenceEquals(null, this.RznSocRecep))
+            {
+                this.RznSocRecep = this.RznSocRecep.TrimEnd();
+            }
+
+            if (!Object.ReferenceEquals(null, this.GiroRecep))
+            {
+                this.GiroRecep = this.GiroRecep.TrimEnd();
+            }
+
+            if (!Object.ReferenceEquals(null, this.Contacto))
+            {
+                this.Contacto = this.Contacto.TrimEnd();
+            }
+
+            if (!Object.ReferenceEquals(null, this.DirRecep))
+            {
+                this.DirRecep = this.DirRecep.TrimEnd();
+            }
+
+            if (!Object.ReferenceEquals(null, this.CmnaRecep))
+            {
+                this.CmnaRecep = this.CmnaRecep.TrimEnd();
+            }
+
+            if (!Object.ReferenceEquals(null, this.CiudadRecep))
+            {
+                this.CiudadRecep = this.CiudadRecep.TrimEnd();
+            }
+
+            if (!Object.ReferenceEquals(null, this.DirPostal))
+            {
+                this.DirPostal = this.DirPostal.TrimEnd();
+            }
+
+            if (!Object.ReferenceEquals(null, this.CmnaPostal))
+            {
+                this.CmnaPostal = this.CmnaPostal.TrimEnd();
+            }
+
+            if (!Object.ReferenceEquals(null, this.CiudadPostal))
+            {
+                this.CiudadPostal = this.CiudadPostal.TrimEnd();
+            }
             this.FchResol = FormatStringFactura.dateTimeStringToFormat(this.FchResol);
             this.FchEmis = FormatStringFactura.dateTimeStringToFormat(this.FchEmis);
             this.FchVenc = FormatStringFactura.dateTimeStringToFormat(this.FchVenc);
@@ -63,11 +129,11 @@ namespace XmlPdfCelta
 
             this.MntTotalString = FormatStringFactura.numberToWord(this.MntTotal);
 
-            this.MntNeto = FormatStringFactura.stringToPesos(this.MntNeto);
-            this.MntExe = FormatStringFactura.stringToPesos(this.MntExe);
-            this.TasaIVA = FormatStringFactura.doubletoString(this.TasaIVA);
-            this.IVA = FormatStringFactura.stringToPesos(this.IVA);
-            this.MntTotal = FormatStringFactura.stringToPesos(this.MntTotal);
+            this.MntNeto = FormatStringFactura.stringToPesos(this.MntNeto,false);
+            this.MntExe = FormatStringFactura.stringToPesos(this.MntExe,false);
+            this.TasaIVA = FormatStringFactura.doubletoString(this.TasaIVA,true);
+            this.IVA = FormatStringFactura.stringToPesos(this.IVA,false);
+            this.MntTotal = FormatStringFactura.stringToPesos(this.MntTotal,false);
 
 
             foreach (Referencia referencia in this.documentosReferencia)
@@ -76,10 +142,12 @@ namespace XmlPdfCelta
             }
 
             foreach (detalleFactura detalle in this.detalleFactura) {
-                detalle.QtyItem = FormatStringFactura.doubletoString(detalle.QtyItem);
-                detalle.PrcItem = FormatStringFactura.stringToPesos(detalle.PrcItem);
-                detalle.DescuentoMonto = FormatStringFactura.stringToPesos(detalle.DescuentoMonto);
-                detalle.MontoItem = FormatStringFactura.stringToPesos(detalle.MontoItem);
+                detalle.QtyItem = FormatStringFactura.doubletoString(detalle.QtyItem,true);
+                detalle.PrcItem = FormatStringFactura.stringToPesos(detalle.PrcItem,true);
+                
+                //detalle.PrcItem = FormatStringFactura.numberWithoutComma(detalle.PrcItem);
+                detalle.DescuentoMonto = FormatStringFactura.stringToPesos(detalle.DescuentoMonto,true);
+                detalle.MontoItem = FormatStringFactura.stringToPesos(detalle.MontoItem,true);
             }
 
 
