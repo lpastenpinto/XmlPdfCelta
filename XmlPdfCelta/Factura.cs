@@ -21,6 +21,7 @@ namespace XmlPdfCelta
         public string RutEmisor { set; get; }
         public string Folio { set; get; }        
         public string FchVenc { set; get; }
+        public string Sucursal { set; get; }
 
         public string RUTRecep { set; get; }
         public string RznSocRecep { set; get; }

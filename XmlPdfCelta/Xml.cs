@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,29 +10,52 @@ namespace XmlPdfCelta
 {
     class Xml
     {
-        /*public string title { set; get; }
-        public string subTitle { set; get; }
+        public string sXml { set; get; }
+        public string sFalse { set; get; }
+        public string sUnicode { set; get; }
+        public string sDefault { set; get; }
+        public string s32 { set; get; }
+        public string s8 { set; get; }
 
-        public static List<Xml> readXml()
-        {
-            List<Xml> listXmls = new List<Xml>();
-            Xml customXML = new Xml();
-            customXML.title = "TITULO";
-            customXML.subTitle = "Subttulo";
-            listXmls.Add(customXML);
-
-            Xml customXML2 = new Xml();
-            customXML2.title = "TITULO2";
-            customXML2.subTitle = "Subttulo2";
-            listXmls.Add(customXML2);
-            return listXmls;
-        
-        }*/
         XmlDocument xDoc = new XmlDocument();
         Factura Factura = new Factura();
         List<detalleFactura> detalleFactura = new List<detalleFactura>();
-        public Xml(string path) {            
-            xDoc.Load(path);
+
+        public Xml(string path) {
+
+            //this.sXml = @"<?xml version=""1.0"" encoding=""ISO-8859-1""?><DTE version=""1.0""></DTE>";
+            //StreamReader swSinEncoding = new StreamReader(path, Encoding.Default); //Encoding.GetEncoding("iso-8859-1") 
+            StreamReader swSinEncoding = new StreamReader(path, Encoding.Default,true);
+            
+            this.sXml = swSinEncoding.ReadToEnd();           
+
+            /*string _byteOrderMarkUtf8 = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());
+            if (this.sXml.StartsWith(_byteOrderMarkUtf8))
+            {
+                this.sXml = this.sXml.Remove(0, _byteOrderMarkUtf8.Length);
+            }
+
+            string _byteOrderMarkDefault = Encoding.Default.GetString(Encoding.Default.GetPreamble());
+            if (this.sXml.StartsWith(_byteOrderMarkDefault))
+            {
+                this.sXml = this.sXml.Remove(0, _byteOrderMarkDefault.Length);
+            }
+
+
+            
+            byte[] encodedString = Encoding.Default.GetBytes(this.sXml);
+            
+            MemoryStream ms = new MemoryStream(encodedString);
+            ms.Flush();
+            ms.Position = 0;
+            
+            //xDoc.XmlResolver = null;  loadxml strinh
+              */          
+            xDoc.LoadXml(this.sXml);
+
+
+                        
+           
         }
 
         public Factura readXml() {
@@ -105,10 +129,28 @@ namespace XmlPdfCelta
             }
 
             Factura.GiroEmis = ((XmlElement)Emisor[0]).GetElementsByTagName("GiroEmis")[0].InnerText;
-            Factura.DirOrigen = ((XmlElement)Emisor[0]).GetElementsByTagName("DirOrigen")[0].InnerText;
-            Factura.CmnaOrigen = ((XmlElement)Emisor[0]).GetElementsByTagName("CmnaOrigen")[0].InnerText;
-            Factura.CiudadOrigen = ((XmlElement)Emisor[0]).GetElementsByTagName("CiudadOrigen")[0].InnerText;
 
+
+            if (!Object.ReferenceEquals(null, ((XmlElement)Emisor[0]).GetElementsByTagName("DirOrigen")[0]))
+            {
+                Factura.DirOrigen = ((XmlElement)Emisor[0]).GetElementsByTagName("DirOrigen")[0].InnerText;
+            }
+
+            if (!Object.ReferenceEquals(null, ((XmlElement)Emisor[0]).GetElementsByTagName("CmnaOrigen")[0]))
+            {
+                Factura.CmnaOrigen = ((XmlElement)Emisor[0]).GetElementsByTagName("CmnaOrigen")[0].InnerText;
+            }
+
+            if (!Object.ReferenceEquals(null, ((XmlElement)Emisor[0]).GetElementsByTagName("CiudadOrigen")[0]))
+            {
+                Factura.CiudadOrigen = ((XmlElement)Emisor[0]).GetElementsByTagName("CiudadOrigen")[0].InnerText;
+            }
+            if (!Object.ReferenceEquals(null, ((XmlElement)Emisor[0]).GetElementsByTagName("Sucursal")[0]))
+            {
+                Factura.Sucursal = ((XmlElement)Emisor[0]).GetElementsByTagName("Sucursal")[0].InnerText;
+            }
+            
+            
             Factura.RutEmisor = ((XmlElement)Emisor[0]).GetElementsByTagName("RUTEmisor")[0].InnerText;
 
             Factura.Folio = ((XmlElement)IdDoc[0]).GetElementsByTagName("Folio")[0].InnerText;
@@ -319,7 +361,16 @@ namespace XmlPdfCelta
             Factura.GiroEmis = ((XmlElement)Emisor[0]).GetElementsByTagName("GiroEmis")[0].InnerText;
             Factura.DirOrigen = ((XmlElement)Emisor[0]).GetElementsByTagName("DirOrigen")[0].InnerText;
             Factura.CmnaOrigen = ((XmlElement)Emisor[0]).GetElementsByTagName("CmnaOrigen")[0].InnerText;
-            Factura.CiudadOrigen = ((XmlElement)Emisor[0]).GetElementsByTagName("CiudadOrigen")[0].InnerText;
+            if (!Object.ReferenceEquals(null, ((XmlElement)Emisor[0]).GetElementsByTagName("CiudadOrigen")[0]))
+            {
+                Factura.CiudadOrigen = ((XmlElement)Emisor[0]).GetElementsByTagName("CiudadOrigen")[0].InnerText;
+            }
+
+            if (!Object.ReferenceEquals(null, ((XmlElement)Emisor[0]).GetElementsByTagName("Sucursal")[0]))
+            {
+                Factura.Sucursal = ((XmlElement)Emisor[0]).GetElementsByTagName("Sucursal")[0].InnerText;
+            }
+            
 
             Factura.RutEmisor = ((XmlElement)Emisor[0]).GetElementsByTagName("RUTEmisor")[0].InnerText;
 

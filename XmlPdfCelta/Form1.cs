@@ -61,7 +61,9 @@ namespace XmlPdfCelta
             if (openFile.ShowDialog() == DialogResult.OK)
             {               
                 Xml xml = new Xml(openFile.FileName);
-                try
+
+                //this.Close();
+                /*try
                 {
                     Factura = xml.readXml();
                     Factura.formatFactura();
@@ -72,7 +74,7 @@ namespace XmlPdfCelta
                 }
                 catch (Exception) {                   
                     MessageBox.Show("Documento XML no tiene el formato correcto","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
-                }                
+                } */               
             }
         }
 
@@ -126,12 +128,13 @@ namespace XmlPdfCelta
             ReportDataSource dataSources = new ReportDataSource();
             dataSources.Name = "DataSet1";
             dataSources.Value = factura.detalleFactura;
-
+           
+       
             ReportDataSource dataSources2 = new ReportDataSource();
             dataSources2.Name = "DataSet2";
             dataSources2.Value = factura.documentosReferencia;
 
-            ReportParameter[] parameters = new ReportParameter[29];            
+            ReportParameter[] parameters = new ReportParameter[30];            
             parameters[0] = new ReportParameter("RznSoc", factura.RznSoc);
             parameters[1] = new ReportParameter("GiroEmis", factura.GiroEmis);
             parameters[2] = new ReportParameter("DirOrigen", factura.DirOrigen);
@@ -162,7 +165,7 @@ namespace XmlPdfCelta
 
             parameters[27] = new ReportParameter("CdgVendedor", factura.CdgVendedor);
             parameters[28] = new ReportParameter("FchVenc", factura.FchVenc);
-
+            parameters[29] = new ReportParameter("Sucursal", factura.Sucursal);
             
 
             this.reportViewer2.LocalReport.EnableExternalImages = true;
@@ -271,7 +274,9 @@ namespace XmlPdfCelta
 
 
         private void generatePDF() {
+
             Xml xml = new Xml(this.rutaXML);
+            
             try
             {
                 Factura = xml.readXml();
@@ -286,7 +291,7 @@ namespace XmlPdfCelta
             catch (Exception)
             {
                 MessageBox.Show("Documento XML no tiene el formato correcto", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }                      
+            }
         }
     }
 }
